@@ -1,0 +1,224 @@
+{
+  "entityType" : "DASHBOARD",
+  "entity" : {
+    "assignedCustomers" : null,
+    "configuration" : {
+      "description" : "For creating users in which it will be necessary to fill in the name, e-mail and phone number so that the phone is bound to the country UA by default, and there they have a default US. Form to respond to the two languages of the system English and Ukrainian.",
+      "widgets" : {
+        "7ad8fadf-a916-42e6-0445-f34b0059d3dc" : {
+          "typeFullFqn" : "system.cards.markdown_card",
+          "type" : "latest",
+          "sizeX" : 5,
+          "sizeY" : 3.5,
+          "config" : {
+            "datasources" : [ {
+              "type" : "entity",
+              "entityAliasId" : "82f35c91-3e05-1ec6-b6e7-6d0c622d3b32",
+              "dataKeys" : [ {
+                "name" : "title",
+                "type" : "entityField",
+                "label" : "Title",
+                "color" : "#2196f3",
+                "settings" : { },
+                "_hash" : 0.9912304857943648
+              } ],
+              "alarmFilterConfig" : {
+                "statusList" : [ "ACTIVE" ]
+              }
+            } ],
+            "timewindow" : {
+              "displayValue" : "",
+              "selectedTab" : 0,
+              "realtime" : {
+                "realtimeType" : 1,
+                "interval" : 1000,
+                "timewindowMs" : 60000,
+                "quickInterval" : "CURRENT_DAY"
+              },
+              "history" : {
+                "historyType" : 0,
+                "interval" : 1000,
+                "timewindowMs" : 60000,
+                "fixedTimewindow" : {
+                  "startTimeMs" : 1697901152371,
+                  "endTimeMs" : 1697987552371
+                },
+                "quickInterval" : "CURRENT_DAY"
+              },
+              "aggregation" : {
+                "type" : "AVG",
+                "limit" : 25000
+              }
+            },
+            "showTitle" : false,
+            "backgroundColor" : "#fff",
+            "color" : "rgba(0, 0, 0, 0.87)",
+            "padding" : "0px",
+            "settings" : {
+              "useMarkdownTextFunction" : true,
+              "markdownTextFunction" : "var customerSelect = '<select id=\"customer\" name=\"customer\">';\n\n    // Создание выпадающего списка с клиентами\nvar customerSelect = '<select id=\"customer\" name=\"customer\">';\n\n\n// Створення випадаючого списку з entityId клієнтів\ndata.forEach(function (entity) {\n    var optionText = entity['Title']\n    var optionValue = entity['entityId'];\n    customerSelect += '<option value=\"' + optionValue + '\">' + optionText + '</option>';\n});\n\n\n\n\n    customerSelect += '</select>';\n\n    // Весь HTML-код для формы и кнопки\n    var formHTML = `\n        <div class=\"form-container\">\n           <h2>{i18n:Create-User.dashboard}</h2>\n    <form id=\"user-form\">\n        <label for=\"customer\">Choose {i18n:Create-User.customer}:</label>\n<input type=\"text\" id=\"customer-search\" placeholder=\"Search customers\">\n        ${customerSelect}\n\n        <label for=\"firstName\">{i18n:Create-User.firstName}:</label>\n        <input type=\"text\" id=\"firstName\" name=\"firstName\" required>\n        <label for=\"lastName\">{i18n:Create-User.lastName}:</label>\n        <input type=\"text\" id=\"lastName\" name=\"lastName\" required>\n        <label for=\"email\">{i18n:Create-User.email}:</label>\n        <input type=\"email\" id=\"email\" name=\"email\" required pattern=\"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$\">\n                    <!--<label for=\"phone\">{i18n:Create-User.phone}:</label>-->\n       <div class=\"phone-container\">\n    <select id=\"phoneType\" name=\"phoneType\">\n                <option value=\"UA\">UA</option>\n                <option value=\"US\">US</option>\n                <option value=\"DE\">DE</option>\n                <!-- Додайте інші можливі варіанти тут -->\n            </select>\n            <input type=\"tel\" id=\"phone\" name=\"phone\" value=\"+380\" required pattern=\"^\\\\+[0-9]{1,14}$\">\n\n        </div>\n        <label for=\"authority\">{i18n:Create-User.authority}:</label>\n        <select id=\"authority\" name=\"authority\">\n            <option value=\"CUSTOMER_USER\">Customer User</option>\n            <option value=\"TENANT_ADMIN\">Tenant Admin</option>\n            <option value=\"SYS_ADMIN\">SYS_ADMIN</option>\n            <option value=\"READ_ONLY\">READ_ONLY</option>\n        </select>\n        <label for=\"email\">{i18n:Create-User.activMethod}:</label>\n        <select id=\"activationMethod\" name=\"activationMethod\">\n    <option value=\"displayActivationLink\">Display activation link</option>\n    <option value=\"sendActivationMail\">Send activation mail</option>\n</select>\n        <button type=\"button\" id=\"submit-button\">{i18n:Create-User.submit}</button>\n        <div id=\"success-response\" class=\"response success-response\" style=\"display: none;\">\n    {i18n:Create-User.okResponseCreateUser}\n</div>\n<div id=\"error-response\" class=\"response error-response\" style=\"display: none;\">\n    {i18n:Create-User.errorResponse}\n</div>\n    </form>\n</div>\n\n    `;\n\n    return formHTML;",
+              "applyDefaultMarkdownStyle" : false,
+              "markdownCss" : ".form-container {\n  max-width: 400px;\n  margin: 0 auto;\n  padding: 20px;\n  background-color: #f7f7f7;\n  border: 1px solid #ddd;\n  border-radius: 5px;\n  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);\n}\n#firstName, #lastName, #email {\n  width: 100%; \n}\nform {\n  display: flex;\n  flex-direction: column;\n}\n\nlabel, select, input {\n  margin-bottom: 5px;\n}\nlabel {\n  font-size: 14px; /* Уменьшаем размер текста в label */\n  margin-bottom: 3px; /* Уменьшаем отступ между label и элементом ввода */\n}\n.phone-container {\n  display: flex;\n  flex-direction: row;\n}\n\nselect, input {\n  padding: 10px;\n  border: 1px solid #ccc;\n  border-radius: 5px;\n}\n\nbutton {\n  background-color: Azure;\n  color: white;\n  border: none;\n  padding: 10px 20px;\n  cursor: pointer;\n  border-radius: 5px;\n  margin: 5px 0; /* Уменьшаем отступы сверху и снизу */\n}\n\n.response {\n  text-align: center;\n  padding: 10px;\n  margin: 5px auto;\n  max-width: 300px;\n  background-color: #4caf50; /* Колір фону для успішної відповіді */\n  color: white;\n  border-radius: 5px;\n  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);\n}\n\n.success-response {\n  background-color: #4caf50; /* Колір фону для успішної відповіді */\n}\n\n.error-response {\n  background-color: #f44336; /* Колір фону для відповіді з помилкою */\n}\n\n\nbutton:hover {\n  background-color: MintCream;\n}\n\n#phone {\n  padding: 10px;\n  border: 1px solid #ccc;\n  border-radius: 5px;\n  width: 85%; /* Мінімальна ширина поля для номера телефону */\n}\n\n\n\n\n"
+            },
+            "title" : "Markdown/HTML Card",
+            "showTitleIcon" : false,
+            "iconColor" : "rgba(0, 0, 0, 0.87)",
+            "iconSize" : "24px",
+            "titleTooltip" : "",
+            "dropShadow" : true,
+            "enableFullscreen" : true,
+            "widgetStyle" : { },
+            "titleStyle" : {
+              "fontSize" : "16px",
+              "fontWeight" : 400
+            },
+            "showLegend" : false,
+            "useDashboardTimewindow" : true,
+            "displayTimewindow" : true,
+            "actions" : {
+              "elementClick" : [ {
+                "name" : "submit-button",
+                "icon" : "add",
+                "useShowWidgetActionFunction" : null,
+                "showWidgetActionFunction" : "return true;",
+                "type" : "custom",
+                "customFunction" : "var customerSelect = document.getElementById('customer');\nvar selectedCustomerId = customerSelect.value;\n\nvar $injector = widgetContext.$scope.$injector;\nvar userService = $injector.get(widgetContext.servicesMap.get('userService'));\n\n// Получение значений полей формы\nvar activationMethod = document.getElementById('activationMethod').value;\nvar firstNameValue = document.getElementById('firstName').value;\nvar lastNameValue = document.getElementById('lastName').value;\nvar emailValue = document.getElementById('email').value;\nvar phoneValue = document.getElementById('phone').value;\nvar authorityValue = document.getElementById('authority').value;\nvar successResponse = document.getElementById('success-response');\nvar errorResponse = document.getElementById('error-response');\nsuccessResponse.style.display = 'none';\nerrorResponse.style.display = 'none';\n\n// Вызов функции для валидации данных\nif (!validateForm(firstNameValue, lastNameValue, phoneValue)) {\n  errorResponse.style.display = 'block';\n  setTimeout(function() {\n    errorResponse.style.display = 'none';\n  }, 15000); // Скрыть сообщение об ошибке через 15 секунд\n} else {\n  var user = {\n      additionalInfo: {\n          defaultDashboardFullscreen: false,\n          defaultDashboardId: null,\n          description: \"\",\n          homeDashboardHideToolbar: true,\n          homeDashboardId: null\n      },\n      authority: authorityValue,\n      email: emailValue,\n      firstName: firstNameValue,\n      lastName: lastNameValue,\n      phone: phoneValue,\n      customerId: {\n          entityType: 'CUSTOMER',\n          id: selectedCustomerId\n      },\n  };\n\n  // Вызов функции для создания пользователя\n  createUser(user);\n}\n\n// Функция для валидации данных\nfunction validateForm(firstName, lastName, phone) {\n    if (!firstName || !lastName || !phone) {\n    alert('Please fill in all required fields.');\n    return false;\n  }\n  if (!isValidName(firstName) || !isValidName(lastName)) {\n    alert('First and last names must not contain numbers.');\n    return false;\n  }\n\n  if (phone.length < 12) {\n    alert('Please enter a valid phone number');\n    return false;\n  }\n\n  return true;\n}\n\nfunction isValidName(name) {\n  var nameRegex = /^[^0-9]+$/;\n  return nameRegex.test(name);\n}\n\n\nfunction displayActivationLink(activationLink) {\n    var title = 'Activation Link';\n    var content = '<b>Activation Link</b>: ' + activationLink;\n\n    // Добавляем ссылку\n    content += '<br><a href=\"' + activationLink + '\" target=\"_blank\">Link</a>';\n\n    console.log(activationLink);\n    showAlertDialog(title, content);\n}\n\n\n\n\n\nfunction showAlertDialog(title, content) {\n    setTimeout(function() {\n        widgetContext.dialogs.alert(title, content).subscribe();\n    }, 100);\n}\n\n\n\nfunction sendActivationMail(activationLink) {\n    var config = {\n        // Здесь вы добавляете ссылку в теле запроса\n        // Обратитесь к документации вашего API, чтобы узнать, как правильно сформировать запрос.\n        activationLink: activationLink\n    };\nuserService.sendActivationEmail(emailValue,config).subscribe(\n        () => {\n            console.log('Активационное письмо отправлено успешно.');\n        },\n        (error) => {\n            console.error('Ошибка при отправке активационного письма: ', error);\n        }\n    );\n}\n\n// Функція для створення користувача\nfunction createUser(user) {\n    var activlink;\n    userService.saveUser(user, false).subscribe(\n        (createdUser) => {\n            successResponse.style.display = 'block';\n            setTimeout(function() {\n  successResponse.style.display = 'none';\n}, 15000);\n successResponse.style.backgroundColor = 'Azure';\n            if (activationMethod === 'displayActivationLink') {\n                // Получите активационную ссылку с вашего сервера или откуда-либо еще\n                userService.getActivationLink(createdUser.id.id)\n    .subscribe(\n        (activationLink) => {\n            displayActivationLink(activationLink);\n            activlink=activationLink\n        },\n        (error) => {\n            console.error('Ошибка при получении активационной ссылки: ', error);\n        }\n    );\n            } else if (activationMethod === 'sendActivationMail') {\n                // Здесь мы передаем email и сгенерированную активационную ссылку\n                sendActivationMail(activlink);\n            }\n\n            console.log('Користувача створено: ', createdUser);\n        },\n        (error) => {\n            errorResponse.style.display = 'block';\n            setTimeout(function() {\n  errorResponse.style.display = 'none';\n}, 15000);\n            console.error('Помилка створення користувача: ', error);\n        }\n    );\n}",
+                "openInSeparateDialog" : false,
+                "openInPopover" : false,
+                "id" : "bf3c3b5d-1fb5-be4c-dc77-73aef51ef0a2"
+              }, {
+                "name" : "phoneType",
+                "icon" : "more_horiz",
+                "useShowWidgetActionFunction" : null,
+                "showWidgetActionFunction" : "return true;",
+                "type" : "custom",
+                "customFunction" : "// Отримайте посилання на елементи форми та тип телефону\nvar phoneInput = document.getElementById('phone');\nvar phoneTypeSelect = document.getElementById('phoneType');\n\n// Додайте подію, щоб слідкувати за змінами вибору типу телефону\nphoneTypeSelect.addEventListener('change', function() {\n    var selectedPhoneType = phoneTypeSelect.value;\n    \n    // В залежності від вибраного типу телефону, змініть вміст вводу телефону\n    switch (selectedPhoneType) {\n        case 'UA':\n            phoneInput.value = '+380';\n            break;\n        case 'US':\n            phoneInput.value = '+1';\n            break;\n        case 'DE':\n            phoneInput.value = '+49';\n            break;\n        // Додайте інші можливі варіанти тут\n    }\n});\n",
+                "openInSeparateDialog" : false,
+                "openInPopover" : false,
+                "id" : "8b5cd0c7-a6ea-3513-d827-18b5ca8b2c74"
+              }, {
+                "name" : "customer-search",
+                "icon" : "check",
+                "useShowWidgetActionFunction" : null,
+                "showWidgetActionFunction" : "return true;",
+                "type" : "custom",
+                "customFunction" : "document.getElementById('customer-search').addEventListener('input', function () {\n    // Получите значение введенное в текстовом поле\n    var searchValue = this.value.toUpperCase();\n\n    // Получите элемент select (ваш выпадающий список)\n    var select = document.getElementById('customer');\n\n    // Получите все опции в списке\n    var options = select.getElementsByTagName('option');\n\n\n\n// Переберите опции и скройте те, которые не соответствуют поисковому значению\nvar found = false; // Флаг для отслеживания наличия совпадений\nfor (var i = 0; i < options.length; i++) {\n    var option = options[i];\n    var txtValue = option.textContent || option.innerText;\n    if (searchValue === '' || txtValue.toUpperCase().indexOf(searchValue) > -1) {\n        option.style.display = '';\n        found = true; // Есть совпадение\n    } else {\n        option.style.display = 'none';\n    }\n}\n\n// Если не найдено совпадений, сбросьте выбор\nif (!found) {\n    select.selectedIndex = -1;\n}\n});\n\n\ndocument.getElementById('user-form').addEventListener('submit', function (event) {\n  // Получите значения полей формы\n  var firstNameValue = document.getElementById('firstName').value;\n  var lastNameValue = document.getElementById('lastName').value;\nvar phoneValue = document.getElementById('phone').value;\n  // Проверьте, что данные соответствуют вашим критериям\n  if (!isValidName(firstNameValue) || !isValidName(lastNameValue)) {\n    // Если данные не соответствуют, предотвратите отправку формы\n    event.preventDefault();\n    alert('First and last names must not contain numbers.');\n  }\n    if (!isValidPhone(phoneValue)) {\n    // Если данные не соответствуют, предотвратите отправку формы\n    event.preventDefault();\n    alert('Please enter a valid phone number.');\n  }\n});\n\n\nfunction isValidPhone(phone) {\n  // Регулярное выражение для проверки номера телефона, минимум 12 цифр\n  var phoneRegex = /^\\+\\d{12,}$/;\n  return phoneRegex.test(phone);\n}\nfunction isValidName(name) {\n  // Регулярное выражение для проверки, что строка не содержит чисел\n  var nameRegex = /^[^0-9]+$/;\n  return nameRegex.test(name);\n}\n",
+                "openInSeparateDialog" : false,
+                "openInPopover" : false,
+                "id" : "b1996dc6-0d72-7132-c103-1dde7d58be94"
+              }, {
+                "name" : "user-form",
+                "icon" : "widgets",
+                "useShowWidgetActionFunction" : null,
+                "showWidgetActionFunction" : "return true;",
+                "type" : "custom",
+                "customFunction" : "document.getElementById('user-form').addEventListener('submit', function (event) {\n  // Получите значения полей формы\n  var phoneValue = document.getElementById('phone').value;\nvar firstNameValue = document.getElementById('firstName').value;\n  var lastNameValue = document.getElementById('lastName').value;\n\n  // Проверьте, что данные соответствуют вашим критериям\n  if (!isValidPhone(phoneValue)|| !isValidName(lastNameValue)) {\n    // Если данные не соответствуют, предотвратите отправку формы\n    event.preventDefault();\n    alert('Please enter a valid phone number.');\n  }\n});\n\nfunction isValidPhone(phone) {\n  var phoneRegex = /^\\+\\d{12,}$/;\n  return phoneRegex.test(phone);\n}\n\nfunction isValidName(name) {\n  // Регулярное выражение для проверки, что строка не содержит чисел\n  var nameRegex = /^[^0-9]+$/;\n  return nameRegex.test(name);\n}\n",
+                "openInSeparateDialog" : false,
+                "openInPopover" : false,
+                "id" : "9de5392d-94cb-8d27-4106-5e18e35de4df"
+              } ],
+              "headerButton" : [ ]
+            }
+          },
+          "row" : 0,
+          "col" : 0,
+          "id" : "7ad8fadf-a916-42e6-0445-f34b0059d3dc"
+        }
+      },
+      "states" : {
+        "default" : {
+          "name" : "Create User",
+          "root" : true,
+          "layouts" : {
+            "main" : {
+              "widgets" : {
+                "7ad8fadf-a916-42e6-0445-f34b0059d3dc" : {
+                  "sizeX" : 11,
+                  "sizeY" : 13,
+                  "row" : 0,
+                  "col" : 4
+                }
+              },
+              "gridSettings" : {
+                "backgroundColor" : "#eeeeee",
+                "columns" : 24,
+                "margin" : 10,
+                "outerMargin" : true,
+                "backgroundSizeMode" : "100%"
+              }
+            }
+          }
+        }
+      },
+      "entityAliases" : {
+        "82f35c91-3e05-1ec6-b6e7-6d0c622d3b32" : {
+          "id" : "82f35c91-3e05-1ec6-b6e7-6d0c622d3b32",
+          "alias" : "Customers",
+          "filter" : {
+            "type" : "entitiesByGroupName",
+            "resolveMultiple" : true,
+            "groupStateEntity" : false,
+            "stateEntityParamName" : null,
+            "groupType" : "CUSTOMER",
+            "entityGroupNameFilter" : "All"
+          }
+        }
+      },
+      "filters" : { },
+      "timewindow" : {
+        "displayValue" : "",
+        "hideInterval" : false,
+        "hideLastInterval" : false,
+        "hideQuickInterval" : false,
+        "hideAggregation" : false,
+        "hideAggInterval" : false,
+        "hideTimezone" : false,
+        "selectedTab" : 0,
+        "realtime" : {
+          "realtimeType" : 0,
+          "interval" : 1000,
+          "timewindowMs" : 60000,
+          "quickInterval" : "CURRENT_DAY"
+        },
+        "history" : {
+          "historyType" : 0,
+          "interval" : 1000,
+          "timewindowMs" : 60000,
+          "fixedTimewindow" : {
+            "startTimeMs" : 1697901095498,
+            "endTimeMs" : 1697987495498
+          },
+          "quickInterval" : "CURRENT_DAY"
+        },
+        "aggregation" : {
+          "type" : "AVG",
+          "limit" : 25000
+        }
+      },
+      "settings" : {
+        "stateControllerId" : "entity",
+        "showTitle" : false,
+        "showDashboardsSelect" : true,
+        "showEntitiesSelect" : true,
+        "showDashboardTimewindow" : true,
+        "showDashboardExport" : true,
+        "toolbarAlwaysOpen" : true
+      }
+    },
+    "customerId" : null,
+    "externalId" : null,
+    "id" : {
+      "entityType" : "DASHBOARD",
+      "id" : "4a3daca0-70ed-11ee-8ef6-1f97654f1861"
+    },
+    "image" : null,
+    "mobileHide" : false,
+    "mobileOrder" : null,
+    "name" : "{i18n:Create-User.dashboard}",
+    "ownerId" : null,
+    "title" : "{i18n:Create-User.dashboard}"
+  },
+  "attributes" : {
+    "SERVER_SCOPE" : [ ]
+  }
+}
